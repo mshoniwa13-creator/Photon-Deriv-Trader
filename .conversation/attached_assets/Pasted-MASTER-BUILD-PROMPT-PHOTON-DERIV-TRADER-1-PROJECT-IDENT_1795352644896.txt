@@ -1,0 +1,610 @@
+MASTER BUILD PROMPT — PHOTON DERIV TRADER
+
+1. PROJECT IDENTITY
+
+Build a professional automated trading application called Photon Deriv Trader.
+
+The application will analyse and trade Deriv Synthetic Indices using a multi-timeframe market-structure methodology based on the educational material from Photon Trading.
+
+The goal is to translate the concepts taught in the supplied Photon Trading videos into a structured, testable and eventually automated trading system.
+
+This is not supposed to be a generic indicator-based trading bot.
+
+The trading methodology, analysis engine, signal generation, risk management and execution engine must be separate modules.
+
+Build the application as a functional product, not just a dashboard prototype.
+
+2. TECHNOLOGY STACK
+
+Use:
+
+- Frontend: React + TypeScript.
+- Styling: Tailwind CSS or an equivalent professional component system.
+- Backend: Node.js + TypeScript.
+- Database: PostgreSQL.
+- Charts: TradingView Lightweight Charts or an equivalent charting library.
+- API: Official Deriv WebSocket API.
+- Authentication: Secure user authentication.
+- Deployment: Replit.
+- Mobile: Responsive, installable Progressive Web App (PWA).
+
+Keep the architecture modular so the application can later be packaged as an Android application.
+
+Never expose Deriv API tokens, credentials or sensitive settings in frontend code.
+
+3. TRADING MARKET
+
+The initial trading environment is Deriv Synthetic Indices.
+
+Design the system so that supported symbols can be configured rather than hardcoded.
+
+Allow the user to:
+
+- Select synthetic indices.
+- View live prices.
+- View historical candles.
+- Select analysis timeframes.
+- Monitor market structure.
+- Receive trading signals.
+- Execute demo trades.
+- Review trading history.
+
+Do not assume Forex market sessions, institutional volume, real-world news or exchange order-book data exist in the same way on synthetic indices.
+
+Validate every market-data assumption against the actual Deriv API.
+
+4. PHOTON TRADING METHODOLOGY
+
+The trading engine must be based on the following concepts identified from the supplied educational material.
+
+A. Multi-timeframe market structure
+
+Implement the identified timeframe hierarchy:
+
+- Monthly over Weekly.
+- Weekly over Daily.
+- Daily over H4.
+- H4 over H1.
+- H1 over M15.
+- M15 over M5.
+- M5 over M1.
+- M1 over 30 seconds.
+- 30 seconds over 15 seconds.
+
+Use this as a configurable timeframe hierarchy.
+
+The initial primary analysis framework should focus on:
+
+D1 — Overall market context
+
+- Determine the broader market direction.
+- Identify important structural highs and lows.
+- Detect possible changes in the broader trend.
+
+H4 — Market narrative
+
+- Determine whether price is continuing the broader trend or retracing.
+- Identify structural movements and relevant areas of interest.
+- Determine where a continuation or reversal setup may develop.
+
+M15 — Intermediate confirmation
+
+- Analyse shorter-term market structure.
+- Identify changes in direction.
+- Look for evidence that an H4 retracement or continuation is developing.
+
+M1 and lower — Entry refinement
+
+- Examine local structure.
+- Refine potential entry locations.
+- Confirm whether the intended entry conditions are present.
+
+Do not allow lower-timeframe signals to override higher-timeframe context without an explicitly defined strategy rule.
+
+B. Strong and weak highs and lows
+
+Implement a market-structure module that can identify:
+
+- Swing highs.
+- Swing lows.
+- Strong highs.
+- Strong lows.
+- Weak highs.
+- Weak lows.
+- Higher highs.
+- Higher lows.
+- Lower highs.
+- Lower lows.
+
+A strong low is associated with a bullish impulse that moves price upward.
+
+A strong high is associated with a bearish impulse that moves price downward.
+
+Develop configurable structural detection algorithms.
+
+Do not invent exact pivot lookback periods, swing confirmation rules or displacement thresholds. Store these as configurable parameters until they are verified against the original lessons.
+
+C. Market structure and trend changes
+
+Implement detection and visualisation of:
+
+- Bullish market structure.
+- Bearish market structure.
+- Structural breaks.
+- Potential trend changes.
+- Confirmed trend changes.
+- Continuation structures.
+- Pullbacks and retracements.
+
+Separate a potential trend change from a confirmed trend change.
+
+Do not generate a trade simply because one candle breaks a previous high or low.
+
+Require configurable structural confirmation conditions.
+
+D. Liquidity concepts
+
+Include a dedicated liquidity-analysis module based on the Photon Trading mechanical liquidity lesson.
+
+The concepts identified so far include:
+
+- Liquidity pools.
+- Buy-side liquidity.
+- Sell-side liquidity.
+- Liquidity inducement.
+- High-resistance liquidity.
+- Low-resistance liquidity.
+- Liquidity targets.
+- Liquidity-based entry and exit planning.
+
+The engine should identify potential liquidity areas from price structure.
+
+Display these areas on the chart.
+
+Do not invent the precise definitions or entry conditions for these concepts. Build the module so that verified rules can be added and tested later.
+
+E. Supply and demand
+
+Implement an area-of-interest module that can record and display:
+
+- Supply zones.
+- Demand zones.
+- Potential order blocks.
+- Relevant structural areas.
+- Price reactions around identified zones.
+
+Distinguish between detected zones and zones that have been confirmed by the trading methodology.
+
+F. Premium and discount
+
+Implement range-based premium and discount analysis.
+
+The module should:
+
+1. Identify a relevant price range using verified structural points.
+2. Calculate the midpoint of the range.
+3. Divide the range into premium and discount areas.
+4. Display the equilibrium level.
+5. Show whether price is currently trading in premium, discount or equilibrium.
+
+The application should support the concept of looking for selling opportunities in premium and buying opportunities in discount, but must not execute trades based on this concept alone.
+
+The exact range-selection rules must remain configurable until verified.
+
+G. Fractal order flow
+
+Implement a module that compares higher-timeframe and lower-timeframe structure.
+
+For example:
+
+- A higher-timeframe bearish trend may contain a temporary bullish lower-timeframe movement.
+- That lower-timeframe movement may contribute to the formation of a higher-timeframe supply area.
+- The application should distinguish a lower-timeframe retracement from a genuine higher-timeframe reversal.
+
+Display this relationship clearly.
+
+5. STRATEGY ENGINE
+
+Create a modular strategy engine that combines the verified concepts.
+
+Its workflow should be:
+
+1. Retrieve market data.
+2. Analyse higher-timeframe structure.
+3. Determine directional context.
+4. Identify relevant structural areas.
+5. Analyse liquidity.
+6. Analyse premium and discount.
+7. Examine lower-timeframe confirmation.
+8. Evaluate the entry conditions.
+9. Pass the proposed trade to the risk engine.
+10. Execute only if all required conditions pass.
+
+Each strategy must have its own configuration and version.
+
+Every generated signal must record:
+
+- Symbol.
+- Direction.
+- Timeframe.
+- Market structure.
+- Higher-timeframe bias.
+- Liquidity context.
+- Premium/discount position.
+- Relevant supply/demand area.
+- Entry reason.
+- Stop-loss logic, if defined.
+- Take-profit logic, if defined.
+- Invalidating conditions.
+- Strategy version.
+- Timestamp.
+
+Do not manufacture entry, stop-loss or take-profit rules that are not established by the source material.
+
+Create a strategy-rule configuration system so verified video lessons can be translated into exact machine-readable conditions later.
+
+6. STRATEGY RULE VERIFICATION
+
+Create a dedicated Strategy Documentation section.
+
+For every implemented rule, store:
+
+- Rule name.
+- Description.
+- Source video.
+- Source timestamp or transcript reference, when available.
+- Exact trading condition.
+- Required confirmation.
+- Invalidation condition.
+- Implementation status.
+
+Use three statuses:
+
+1. VERIFIED — directly supported by source material.
+2. PROVISIONAL — supported by identified teaching material but not yet confirmed against the full lesson.
+3. UNVERIFIED — requires further source review.
+
+Never present provisional or unverified rules as confirmed Photon Trading rules.
+
+Allow the user to update a rule when more video transcripts become available.
+
+7. DERIV API INTEGRATION
+
+Integrate the official Deriv WebSocket API.
+
+Implement:
+
+- API connection.
+- Demo account authentication.
+- Balance retrieval.
+- Symbol information.
+- Live tick subscriptions.
+- Historical candle retrieval.
+- Proposal requests.
+- Buy and sell operations for supported contracts.
+- Open contract monitoring.
+- Contract settlement.
+- Transaction history.
+
+Handle:
+
+- Connection loss.
+- Reconnection.
+- Authentication failures.
+- API errors.
+- Duplicate requests.
+- Stale market data.
+- Subscription cleanup.
+
+Use the official Deriv API documentation to confirm supported request formats and contract capabilities.
+
+Store API tokens securely on the backend.
+
+Initially support demo accounts only.
+
+8. RISK MANAGEMENT ENGINE
+
+Create an independent risk management engine.
+
+Include configurable limits for:
+
+- Maximum stake.
+- Maximum daily loss.
+- Maximum consecutive losses.
+- Maximum open positions.
+- Maximum trades per day.
+- Minimum time between trades.
+- Maximum account exposure.
+
+Include:
+
+- Emergency stop.
+- Automatic halt after risk-limit breaches.
+- Duplicate-signal prevention.
+- Stale-data protection.
+- Connection-loss protection.
+- Trade cooldown.
+
+The strategy engine must never bypass risk controls.
+
+Do not assume a fixed stake size is appropriate for every account.
+
+9. BACKTESTING ENGINE
+
+Build a historical backtesting module.
+
+Allow users to:
+
+- Select an index.
+- Select a historical period.
+- Select strategy version.
+- Select timeframes.
+- Configure risk parameters.
+- Run historical simulations.
+- View trade-by-trade results.
+
+Calculate:
+
+- Total trades.
+- Winning trades.
+- Losing trades.
+- Win rate.
+- Net profit or loss.
+- Profit factor.
+- Maximum drawdown.
+- Average win.
+- Average loss.
+- Expected value.
+- Consecutive wins and losses.
+
+Use realistic historical execution assumptions.
+
+Account for contract payout, duration, pricing and settlement characteristics where applicable.
+
+Never assume that a candle touching a theoretical entry price guarantees a real Deriv contract would have been purchased at that price.
+
+Clearly distinguish backtest results from live trading results.
+
+10. PAPER TRADING
+
+Before enabling real demo execution, build a paper-trading environment.
+
+It should:
+
+- Generate signals.
+- Simulate trades.
+- Record entries and exits.
+- Calculate simulated profit and loss.
+- Maintain a virtual balance.
+- Produce a trade journal.
+
+Allow strategy performance to be evaluated before connecting execution.
+
+11. APPLICATION INTERFACE
+
+Build a premium, professional trading interface.
+
+The dashboard should contain:
+
+Main dashboard
+
+- Account balance.
+- Account type.
+- Selected synthetic index.
+- Current price.
+- Market direction.
+- Higher-timeframe bias.
+- Current strategy status.
+- Active signals.
+- Open positions.
+- Daily profit/loss.
+
+Advanced chart
+
+- Candlestick chart.
+- Multiple timeframe selection.
+- Market structure labels.
+- Strong and weak highs/lows.
+- Liquidity areas.
+- Supply and demand zones.
+- Premium and discount.
+- Equilibrium.
+- Entry and exit markers.
+
+Strategy laboratory
+
+- Strategy selection.
+- Strategy configuration.
+- Rule verification status.
+- Backtesting.
+- Performance statistics.
+
+Trade journal
+
+- Trade history.
+- Entry reason.
+- Exit reason.
+- Result.
+- Screenshots or chart snapshots where supported.
+- Strategy version.
+
+Risk management
+
+- Stake settings.
+- Daily loss limit.
+- Consecutive-loss limit.
+- Position limits.
+- Emergency stop.
+
+Settings
+
+- Deriv API connection.
+- Account selection.
+- Symbol selection.
+- Timeframe settings.
+- Notifications.
+- Theme.
+
+Use clear labels, readable charts, responsive layouts and professional trading terminology.
+
+The mobile interface must be fully functional, not merely a desktop page squeezed onto a phone.
+
+12. AUTOMATION MODES
+
+Provide three operating modes:
+
+1. ANALYSIS ONLY
+   
+   - Analyse markets.
+   - Display structure.
+   - Generate signals.
+   - Never execute trades.
+
+2. PAPER TRADING
+   
+   - Simulate execution.
+   - Record performance.
+   - No real contracts.
+
+3. DEMO AUTOMATION
+   
+   - Execute approved signals on a Deriv demo account.
+   - Apply every risk-management rule.
+   - Provide a visible emergency stop.
+
+Real-money trading must remain disabled.
+
+Do not create a hidden mechanism that can bypass the mode restrictions.
+
+13. SECURITY AND RELIABILITY
+
+Implement:
+
+- Secure authentication.
+- Server-side API credentials.
+- Input validation.
+- Protected backend endpoints.
+- Database persistence.
+- Audit logs.
+- Error monitoring.
+- Safe WebSocket handling.
+- Rate-limit awareness.
+- Session management.
+
+Never place trading credentials in browser local storage or public frontend environment variables.
+
+14. DATABASE DESIGN
+
+Create appropriate database tables for:
+
+- Users.
+- Accounts.
+- API connections.
+- Symbols.
+- Candles.
+- Market structure.
+- Liquidity zones.
+- Supply and demand zones.
+- Strategy configurations.
+- Strategy rules.
+- Signals.
+- Trades.
+- Open contracts.
+- Risk settings.
+- Backtest runs.
+- Trade journals.
+- Application logs.
+
+Avoid storing unnecessary duplicate market data.
+
+15. DEVELOPMENT PHASES
+
+Build in stages.
+
+PHASE 1 — FOUNDATION
+
+- Application structure.
+- Responsive dashboard.
+- Authentication.
+- Database.
+- Navigation.
+- Settings.
+
+PHASE 2 — MARKET DATA
+
+- Deriv API connection.
+- Live prices.
+- Historical candles.
+- Charting.
+- Timeframe switching.
+
+PHASE 3 — PHOTON ANALYSIS ENGINE
+
+- Market structure.
+- Strong and weak highs/lows.
+- Multi-timeframe analysis.
+- Liquidity analysis.
+- Supply and demand.
+- Premium and discount.
+- Fractal order flow.
+
+PHASE 4 — STRATEGY ENGINE
+
+- Rule configuration.
+- Signal generation.
+- Signal explanations.
+- Rule verification documentation.
+
+PHASE 5 — BACKTESTING AND PAPER TRADING
+
+- Historical simulation.
+- Performance reports.
+- Virtual account.
+- Trade journal.
+
+PHASE 6 — DEMO AUTOMATION
+
+- Deriv demo authentication.
+- Proposal and contract execution.
+- Risk controls.
+- Emergency stop.
+
+PHASE 7 — MOBILE AND DEPLOYMENT
+
+- PWA installation.
+- Android testing.
+- Performance optimisation.
+- Production security review.
+
+16. IMPORTANT BUILDING RULES
+
+- Do not build everything as one large React component.
+- Use reusable components and separate services.
+- Keep strategy logic independent of the interface.
+- Keep market-data handling independent of trade execution.
+- Write tests for market structure, liquidity detection, premium/discount calculations, risk controls and backtesting.
+- Do not use random trading signals to make the dashboard look active.
+- Do not claim profitability.
+- Do not invent missing Photon Trading rules.
+- Clearly label provisional features.
+- Do not activate real-money trading.
+- Do not use mock data as though it were live Deriv data.
+- If an API feature is unavailable, explain the limitation and provide a safe alternative.
+
+17. FIRST DEVELOPMENT TASK
+
+Start by building PHASE 1 and the foundation for PHASE 2.
+
+Before coding, inspect the project and provide a short implementation plan.
+
+Then create the application structure, database schema, responsive navigation, dashboard and settings.
+
+Ensure the app runs successfully.
+
+Do not stop at a static design. Make navigation, controls and database-backed settings functional.
+
+Once Phase 1 is complete, proceed to the Deriv market-data integration.
+
+The final product should be a reliable, modular trading application that can progressively convert the actual Photon Trading methodology into testable automated trading rules.
+
+PROJECT NAME: PHOTON DERIV TRADER
