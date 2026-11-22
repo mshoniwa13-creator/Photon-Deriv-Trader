@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" fill="none">
+  <rect x="1" y="1" width="34" height="34" rx="7" fill="#286D5D"/>
+  <path d="M9 22.5h4.6l3.2-9 4.1 12 3-7h4.1" stroke="#FBFAF6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="44" y="16" fill="#24333A" font-family="Manrope, sans-serif" font-size="12" font-weight="800" letter-spacing="1">PHOTON</text>
+  <text x="44" y="28" fill="#68746F" font-family="monospace" font-size="7" letter-spacing="1.7">DERIV TRADER</text>
+</svg>

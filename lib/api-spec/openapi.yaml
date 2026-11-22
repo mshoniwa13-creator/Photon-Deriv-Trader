@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: trading-workspace
+    description: User workspace settings and dashboard summary
 paths:
   /healthz:
     get:
@@ -24,6 +26,55 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /settings:
+    get:
+      operationId: getSettings
+      tags: [trading-workspace]
+      summary: Get the current user's trading workspace settings
+      responses:
+        "200":
+          description: Current workspace settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSettings"
+        "401":
+          description: Authentication required
+    put:
+      operationId: updateSettings
+      tags: [trading-workspace]
+      summary: Save the current user's trading workspace settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserSettingsInput"
+      responses:
+        "200":
+          description: Saved workspace settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSettings"
+        "400":
+          description: Invalid settings
+        "401":
+          description: Authentication required
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      tags: [trading-workspace]
+      summary: Get the user's workspace status without simulated activity
+      responses:
+        "200":
+          description: Current dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+        "401":
+          description: Authentication required
 components:
   schemas:
     HealthStatus:
@@ -33,4 +84,114 @@ components:
           type: string
       required:
         - status
+    UserSettings:
+      type: object
+      required:
+        - selectedSymbol
+        - analysisTimeframe
+        - operatingMode
+        - maxStake
+        - dailyLossLimit
+        - maxConsecutiveLosses
+        - maxOpenPositions
+        - maxTradesPerDay
+        - cooldownMinutes
+        - updatedAt
+      properties:
+        selectedSymbol:
+          type: string
+        analysisTimeframe:
+          type: string
+          enum: [D1, H4, M15, M1]
+        operatingMode:
+          type: string
+          enum: [analysis_only, paper_trading]
+        maxStake:
+          type: [number, "null"]
+        dailyLossLimit:
+          type: [number, "null"]
+        maxConsecutiveLosses:
+          type: [integer, "null"]
+        maxOpenPositions:
+          type: [integer, "null"]
+        maxTradesPerDay:
+          type: [integer, "null"]
+        cooldownMinutes:
+          type: [integer, "null"]
+        updatedAt:
+          type: string
+          format: date-time
+    UserSettingsInput:
+      type: object
+      required:
+        - selectedSymbol
+        - analysisTimeframe
+        - operatingMode
+        - maxStake
+        - dailyLossLimit
+        - maxConsecutiveLosses
+        - maxOpenPositions
+        - maxTradesPerDay
+        - cooldownMinutes
+      properties:
+        selectedSymbol:
+          type: string
+          minLength: 2
+          maxLength: 30
+          pattern: "^[A-Za-z0-9_]+$"
+        analysisTimeframe:
+          type: string
+          enum: [D1, H4, M15, M1]
+        operatingMode:
+          type: string
+          enum: [analysis_only, paper_trading]
+        maxStake:
+          type: [number, "null"]
+          minimum: 0
+        dailyLossLimit:
+          type: [number, "null"]
+          minimum: 0
+        maxConsecutiveLosses:
+          type: [integer, "null"]
+          minimum: 1
+        maxOpenPositions:
+          type: [integer, "null"]
+          minimum: 1
+        maxTradesPerDay:
+          type: [integer, "null"]
+          minimum: 1
+        cooldownMinutes:
+          type: [integer, "null"]
+          minimum: 0
+    DashboardSummary:
+      type: object
+      required:
+        - selectedSymbol
+        - operatingMode
+        - accountStatus
+        - accountBalance
+        - dailyProfitLoss
+        - activeSignalCount
+        - openPositionCount
+        - marketDataProvider
+      properties:
+        selectedSymbol:
+          type: string
+        operatingMode:
+          type: string
+          enum: [analysis_only, paper_trading]
+        accountStatus:
+          type: string
+          enum: [not_connected]
+        accountBalance:
+          type: ["number", "null"]
+        dailyProfitLoss:
+          type: ["number", "null"]
+        activeSignalCount:
+          type: integer
+        openPositionCount:
+          type: ["integer", "null"]
+        marketDataProvider:
+          type: string
+          enum: [deriv_public_websocket]
 

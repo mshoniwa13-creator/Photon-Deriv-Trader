@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Photon Deriv Trader"
+description = "A modular Deriv Synthetic Indices analysis and trading workspace for reviewing multi-timeframe market structure, managing strategy rules, and progressing toward safe demo-only automation."
+version = "1.0.0"
+id = "artifacts/photon-deriv-trader"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24282
+
+[services.development]
+run = "pnpm --filter @workspace/photon-deriv-trader run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/photon-deriv-trader", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/photon-deriv-trader/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24282"
+BASE_PATH = "/"
